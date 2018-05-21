@@ -12,6 +12,7 @@ import GameplayKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var ball:SKSpriteNode!
     var paddle:SKSpriteNode!
+    var score: Int = 0
     
     override func didMove(to view: SKView) {
         ball = self.childNode(withName: "Ball") as! SKSpriteNode
@@ -46,10 +47,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if bodyAName == "Ball" && bodyBName == "Brick" || bodyAName == "Brick" && bodyBName == "Ball" {
             if bodyAName == "Brick" {
+                score += 1
                 contact.bodyA.node?.removeFromParent()
             } else if bodyBName == "Brick" {
+                score += 1
                 contact.bodyB.node?.removeFromParent()
             }
+        }
+        
+        if ball.position.y < -400 {
+            exit(0)
         }
     }
 }
