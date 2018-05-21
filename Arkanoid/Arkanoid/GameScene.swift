@@ -49,8 +49,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if bodyAName == "Brick" {
                 score += 1
                 contact.bodyA.node?.removeFromParent()
+                
+                if score == 9 {
+                    exit(0)
+                }
             } else if bodyBName == "Brick" {
-                score += 1
                 contact.bodyB.node?.removeFromParent()
             }
         }
