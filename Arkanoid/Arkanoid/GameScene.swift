@@ -10,6 +10,7 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
     var ball:SKSpriteNode!
     var paddle:SKSpriteNode!
     var score: Int = 0
@@ -21,7 +22,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody?.applyImpulse(CGVector(dx: 50, dy: 50))
         
         let border = SKPhysicsBody(edgeLoopFrom: (view.scene?.frame)!)
-        border.friction = 0
         self.physicsBody = border
         
         self.physicsWorld.contactDelegate = self
@@ -51,15 +51,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 contact.bodyA.node?.removeFromParent()
                 
                 if score == 9 {
-                    exit(0)
+                    ball.physicsBody?.applyImpulse(CGVector(dx: -50, dy: -50))
                 }
+                    
             } else if bodyBName == "Brick" {
                 contact.bodyB.node?.removeFromParent()
             }
         }
         
         if ball.position.y < -400 {
-            exit(0)
+            ball.physicsBody?.applyImpulse(CGVector(dx: -50, dy: -50))
         }
     }
 }
